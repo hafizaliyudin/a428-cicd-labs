@@ -34,12 +34,6 @@ pipeline {
         }
     }
 }
-Dalam kode di atas, saya telah menambahkan bagian skrip persetujuan manual menggunakan blok script. Tahap persetujuan manual akan menampilkan kotak dialog di antarmuka Jenkins dengan pilihan "Proceed" atau "Abort". Jika pengguna memilih "Proceed", maka skrip ./jenkins/scripts/kill.sh akan dijalankan untuk mengakhiri proses. Jika pengguna memilih "Abort", alur kerja akan dihentikan dengan pesan kesalahan.
-
-Pastikan bahwa skrip kill.sh benar-benar mengakhiri proses yang diperlukan untuk aplikasi React Anda. Selain itu, pastikan bahwa skrip lainnya juga berjalan sesuai kebutuhan Anda.
-
-Ingat untuk selalu menguji alur kerja Anda setelah membuat perubahan seperti ini untuk memastikan semuanya berjalan dengan baik.
-
 
 
 
