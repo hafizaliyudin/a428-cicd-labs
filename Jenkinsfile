@@ -17,4 +17,12 @@ pipeline {
             }
         }
     }
+
+         stage('Deploy') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+                input message: 'Sudah selesai menggunakan React App? (Klik "Proceed" untuk mengakhiri)'
+                sh './jenkins/scripts/kill.sh'
+            }
+        }
 }
