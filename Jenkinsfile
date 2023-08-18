@@ -16,12 +16,7 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Deploy - Pause for Approval') {
-            steps {
-                sh './jenkins/scripts/deliver.sh'
-            }
-        }
-        stage('Manual Approval') {
+         stage('Manual Approval') {
             when {
                 expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
             }
@@ -29,9 +24,14 @@ pipeline {
                 input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)'
             }
         }
+        stage('Deploy - Pause for Approval') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+            }
+        }
         stage('Deploy - Finalize') {
             when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+               expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
             }
             steps {
                 sh './jenkins/scripts/kill.sh'
