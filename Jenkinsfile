@@ -16,23 +16,28 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-         stage('Manual Approval') {
-            when {
-                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
+        stage('Manual Approval') {
             steps {
-                input message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)'
+                script {
+                    def userInput = input(
+                        id: 'userInput',
+                        message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)',
+                        parameters: [string(defaultValue: 'Proceed', description: 'Klik "Proceed" untuk mengakhiri', name: 'Proceed')]
+                    )
+                    if (userInput == 'Proceed') {
+                        echo 'Melanjutkan ke tahap Deploy...'
+                    } else {
+                        error('Persetujuan tidak diberikan. Proses dihentikan.')
+                    }
+                }
             }
         }
-        stage('Deploy - Pause for Approval') {
+        stage('Deploy') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
             }
         }
-        stage('Deploy - Finalize') {
-            when {
-               expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
-            }
+        stage('Finalize') {
             steps {
                 sh './jenkins/scripts/kill.sh'
             }
