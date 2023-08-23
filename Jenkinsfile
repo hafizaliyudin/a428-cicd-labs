@@ -32,10 +32,15 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
+       
+       stage('Deploy') {
             steps {
+                echo 'Installing Cloudflare Wrangler'
+                sh 'yarn add wrangler'
+                echo 'Deploying to cloudflare pages'
+                sh 'CLOUDFLARE_ACCOUNT_ID=RAHASIA CLOUDFLARE_API_TOKEN=RAHASIA npx wrangler pages publish build --project-name=RAHASIA'
                 sh './jenkins/scripts/deliver.sh'
-                sleep(time: 1, unit: 'MINUTES')
+                sh 'sleep 60'
                 sh './jenkins/scripts/kill.sh'
             }
         }
