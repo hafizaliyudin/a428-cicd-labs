@@ -38,9 +38,9 @@ pipeline {
                 echo 'Installing Cloudflare Wrangler'
                 sh 'yarn add wrangler'
                 echo 'Deploying to cloudflare pages'
-                sh 'CLOUDFLARE_ACCOUNT_ID=RAHASIA CLOUDFLARE_API_TOKEN=RAHASIA npx wrangler pages publish build --project-name=RAHASIA'
+                sh 'CLOUDFLARE_ACCOUNT_ID=466cc72554c0f657714ff53e3dc0e0a4 CLOUDFLARE_API_TOKEN=ojRlpfhN_do2vzIM0Sp1-58xKsXbtbBxMdJLvCcM npx wrangler pages publish build --project-name=a428-cicd-labs'
                 sh './jenkins/scripts/deliver.sh'
-                sh 'sleep 60'
+                sh 'sleep 60'   
                 sh './jenkins/scripts/kill.sh'
             }
         }
