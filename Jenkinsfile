@@ -16,22 +16,22 @@ pipeline {
                 sh './jenkins/scripts/test.sh'
             }
         }
-        stage('Manual Approval') {
-            steps {
-                script {
-                    def userInput = input(
-                        id: 'userInput',
-                        message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)',
-                        parameters: [string(defaultValue: 'Proceed', description: 'Klik "Proceed" untuk mengakhiri', name: 'Proceed')]
-                    )
-                    if (userInput == 'Proceed') {
-                        echo 'Melanjutkan ke tahap Deploy...'
-                    } else {
-                        error('Persetujuan tidak diberikan. Proses dihentikan.')
-                    }
-                }
-            }
-        }
+        // stage('Manual Approval') {
+        //     steps {
+        //         script {
+        //             def userInput = input(
+        //                 id: 'userInput',
+        //                 message: 'Lanjutkan ke tahap Deploy? (Klik "Proceed" untuk mengakhiri)',
+        //                 parameters: [string(defaultValue: 'Proceed', description: 'Klik "Proceed" untuk mengakhiri', name: 'Proceed')]
+        //             )
+        //             if (userInput == 'Proceed') {
+        //                 echo 'Melanjutkan ke tahap Deploy...'
+        //             } else {
+        //                 error('Persetujuan tidak diberikan. Proses dihentikan.')
+        //             }
+        //         }
+        //     }
+        // }
         stage('Deploy') {
             steps {
                 echo 'Installing Cloudflare Wrangler'
