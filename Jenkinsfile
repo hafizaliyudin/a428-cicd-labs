@@ -32,6 +32,11 @@ pipeline {
                 }
             }
         }
+          stage('Deploy - Pause for Approval') {
+            steps {
+                sh './jenkins/scripts/deliver.sh'
+            }
+        }
         stage('Deploy') {
             steps {
                 sh './jenkins/scripts/deliver.sh'
